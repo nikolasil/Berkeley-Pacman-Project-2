@@ -16,8 +16,8 @@
 όνομα MINMAX(gameState, agentIndex, depth) για να μπορώ να την
 καλέσω μόνο μέσα από την getAction.
 Επειδή δεν έχουμε μόνο ένα φάντασμα για να κάνει το για το MIN αλλά
-πολλά πρέπει η σειρά να είναι pacman->ghost1->ghost2…->ghostn-
->pacman. ‘Οπου όλα τα ghosts είναι MIN, ο pacman MAX και παίζει
+πολλά πρέπει η σειρά να είναι pacman->ghost1->ghost2…->ghostn->pacman.
+‘Οπου όλα τα ghosts είναι MIN, ο pacman MAX και παίζει
 πρώτος.
 Εκτελούμε κανονικά τον αλγόριθμο MIN (για τα ghosts) και MAX (για τον
 pacman) και κάθε φορά που μπαίνουμε στην συνάρτηση ελέγχουμε να
