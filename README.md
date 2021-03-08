@@ -1,68 +1,78 @@
-# This was an exercise that i did on a class Artificial Intelligence in University
+# This project was made during my studies in UOA University and especially for the course Artificial Intelligence 1.
+
 ---
 
-## **Question 1 - Reflex Agent**
+> There are comments all over my code if there is something that i didn't covered here.
 
-Η λογική είναι:
-1. να αποφύγει ο pacman όλα τα ghosts
-2. να μην σταματάει γιατί χάνει χρόνο άσκοπα
-3. και τέλος να επιβραβεύεται με ποιο μεγάλο return αν είναι κοντά σε
-φαγητό
+## Question 1 - Reflex Agent
 
-## **Question 2 – Minimax**
+The logic is:
+- avoid all ghosts
+- not to stop moving because it wastes time unnecessarily
+- and finally be rewarded with what a greater return if it is close to
+food
 
-Γενικά Υλοποίησης:
-Έχω κατασκευάσει μία συνάρτηση μέσα στην getAction(self, gameState) με
-όνομα MINMAX(gameState, agentIndex, depth) για να μπορώ να την
-καλέσω μόνο μέσα από την getAction.
-Επειδή δεν έχουμε μόνο ένα φάντασμα για να κάνει το για το MIN αλλά
-πολλά πρέπει η σειρά να είναι pacman->ghost1->ghost2…->ghostn->pacman.
-‘Οπου όλα τα ghosts είναι MIN, ο pacman MAX και παίζει
-πρώτος.
-Εκτελούμε κανονικά τον αλγόριθμο MIN (για τα ghosts) και MAX (για τον
-pacman) και κάθε φορά που μπαίνουμε στην συνάρτηση ελέγχουμε να
-βρούμε ποιος θα είναι ο επόμενος παίκτης, κάποιο ghost ή ο pacman. Και
-για να καλεσουμε την MINMAX για τα παιδιά του απλά κάνουμε +1 στο
-Index του εκτός άμα είμαστε το τελευταίο ghost θέλουμε να καλέσουμε
-τον pacman με index 0.
-Σχετικά με τον Minimax:
-MIN: Απλά για κάθε children node καλούμε την συνάρτηση αναδρομικά
-για να πάρουμε την τιμή τους [αφού στο τελευταίο επίπεδο γυρνάμε την
-evaluation function] και παίρνουμε τον min των παιδιών.
-MAX: Ίδιο με το MIN αλλά παίρνουμε το max των παιδιών.
+---
 
-## **Question 3 – AlphaBeta Pruning**
+## Question 2 – Minimax
 
-Ο αλγόριθμος είναι ίδιος με του Minimax στο question 2. Μόνο που ο AlphaBeta
-είναι ποιο αποδοτικός γιατί δεν ελέγχει όλα τα Nodes.
-Η συνάρτηση μας λέγεται AlphaBeta(gameState, agentIndex, depth, alpha, beta).
-Και κάθε φορά που ελέγχουμε για κάθε παιδί ενός node κοιτάμε να δούμε εάν ο
-parent node είχε πριν κάποιο καλύτερη επιλογή. Αν είχε σημαίνει πως δεν θα
-επιλέξει οτιδήποτε και να του δώσουμε άρα ας κάνουμε prune.
-Αυτό το καταφέρνουμε με τις μεταβλητές alpha, beta.
-Το alpha κρατάει την μεγαλύτερη τιμή και το beta την μικρότερη.
-Π.χ: Όταν είμαστε ο MIN και κοιτάμε τα παιδιά μας θα το ελέγχουμε με το alpha
-που το έχει φτιάξει ο πατέρας.
+I have constructed a function inside getAction (self, gameState) named MINMAX (gameState, agentIndex, depth) so I can
+call only through getAction.
+Because we don't just have 1 ghost for the MIN but
+many, the turns will like like these [pacman-> ghost1-> ghost2… -> ghostn-> pacman]
+Where all the ghosts are MIN, pacman MAX and playing first.
 
-## **Question 4 – Expectimax**
+The algorithm is:
+- every time we enter the function we check to
+find out who the next player will be, a ghost or a pacman
+- call MINMAX for his kids [just do +1 at Index of unless we are the last ghost we want to call
+pacman with index 0.]
 
-Ο αλγόριθμος είναι ίδιος με του Minimax στο question 2. Μόνο που Expectimax
-δεν είναι με βέλτιστο MIN.
-Η συνάρτηση μας λέγεται Expectimax (gameState, agentIndex, depth).
-Εδώ ο ΜIN μας δεν διαλέγει πάντα την καλύτερη επιλογή για αυτόν, δηλαδή το
-min. Αλλά μπορεί να διαλέξει οποιαδήποτε επιλογή είτε είναι κακή είτε καλή.
-Άρα μπορούμε να πούμε ότι υπάρχει ίση πιθανότητα να διαλέξει οποιαδήποτε
-από τις επιλογές του άρα η τιμή του κόμβου αυτού θα είναι ίσο με το άθροισμα
-των τιμών των παιδιών επί της πιθανότητας να το διαλέξει.
-[πιθανότητα = 1/αριθμός παιδιών]
+About Minimax:
+- MIN: Just for each children node we call the function recursively
+to get their price [after we return it to the last level
+evaluation function] and we get the min of the children.
 
-## **Question 5 – Evaluation Function**
+- MAX: Same as MIN but we get the children's max.
 
-Εδώ σαν το ερώτημα 1 προσπαθούμε να κάνουμε τον pacman να νικήσει αλλά
-χωρίς να γνωρίζουμε το action που θα κάνει.
-Θα χρησιμοποιήσουμε πολλούς παράγοντες για να δούμε αν τα πάει καλά.
-Το ποιο σημαντικό πιστεύω είναι οι κάψουλες γιατί για κάποιο χρονικό διάστημα
-τα ghost δεν μας απειλούν και μπορεί ο pacman ανενόχλητος να φάει τα dots
-[για αυτό οι κάψουλες που απομένουν έχουν συντελεστή βαρύτητας 150].
-Εκτός από αυτό μας νοιάζει το ποιο κοντινό dot, το ποιο κοντινό scared ghost
-αλλά και hunter ghost και φυσικά πόσα dots μας μένουν για να νικήσουμε.
+---
+
+## Question 3 – AlphaBeta Pruning
+
+The algorithm is the same as Minimax in question 2. But AlphaBeta
+is more efficient because it does not checks all Nodes.
+Our function is called AlphaBeta (gameState, agentIndex, depth, alpha, beta).
+And every time we check for each child of a node we look to see if the
+parent node had a better choice before. If it did, it means it will prune.
+We achieve this with the variables alpha, beta.
+Alpha holds the highest value and beta the lowest.
+
+Example: When we are the MIN and we look at our children nodes we check with alpha
+made by the father.
+
+---
+
+## Question 4 – Expectimax
+
+The algorithm is the same as Minimax in question 2. Only Expectimax
+is not with optimal MIN.
+Our function is called Expectimax (gameState, agentIndex, depth).
+Here our MIN does not always choose the best option for him, that is
+min. But it can choose any option whether it is bad or good.
+So we can say that there is an equal chance to choose any
+from its options so the value of this node will be equal to the sum
+of children's prices on the probability of choosing it.
+[probability = 1 / number of children]
+
+---
+
+## Question 5 – Evaluation Function
+
+Here like question 1 we try to make the pacman win but
+without knowing the action he will take.
+We will use many factors help pacman go well.
+The most important I think are the capsules because for some time
+ghosts do not threaten us and pacman can eat dots undisturbed
+[for this the remaining capsules have a weight of 150].
+Other than that we care about the closest dot, the closest scared ghost
+but also hunter ghost and of course how many dots we have left to win.
