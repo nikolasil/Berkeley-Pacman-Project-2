@@ -2,6 +2,9 @@
 
 ---
 
+[Project 2: Multi-Agent Search](https://inst.eecs.berkeley.edu/~cs188/sp19/project2.html)
+
+> **Run command:** python ./autograder.py
 > There are comments all over my code if there is something that i didn't covered here.
 
 ## Question 1 - Reflex Agent
